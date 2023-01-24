@@ -1,23 +1,22 @@
 function threeSum(arr, target) {
-  //your code here
-
-	function threeSum(nums, target) {
-  arr.sort((a,b) => a - b);
-    let closestSum = arr[0] + arr[1] + arr[2];
+  arr.sort((a, b) => a - b);
+    let closestSum = Infinity;
+    let closestNums;
     for (let i = 0; i < arr.length - 2; i++) {
-        let left = i + 1;
-        let right = nums.length - 1;
-        while (left < right) {
-            let sum = arr[i] + arr[left] + arr[right];
-            if (Math.abs(target - sum) < Math.abs(target - closestSum)) {
-                closestSum = sum;
+        let j = i + 1;
+        let k = arr.length - 1;
+        while (j < k) {
+            let currentSum = arr[i] + arr[j] + arr[k];
+            if (currentSum === target) {
+                return currentSum;
+            } else if (Math.abs(currentSum - target) < Math.abs(closestSum - target)) {
+                closestSum = currentSum;
+                closestNums = [arr[i], arr[j], arr[k]];
             }
-            if (sum < target) {
-                left++;
-            } else if (sum > target) {
-                right--;
+            if (currentSum > target) {
+                k--;
             } else {
-                return sum;
+                j++;
             }
         }
     }
